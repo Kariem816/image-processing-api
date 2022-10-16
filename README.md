@@ -9,5 +9,5 @@ Scripts:\
   
 Functionality:\
   To test functionality you can:\
-	- run the frontend react app provided.\
+	- run the frontend react app provided using the script: "npm run dev".\
 	- or use endpoint "http://localhost:3000/resize/fjord/1920/1080"
