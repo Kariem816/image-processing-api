@@ -9,23 +9,23 @@ const port = 3000;
 
 app.use(cors());
 
-app.get('/', (req, res) => {
+app.get('/', (req: express.Request, res: express.Response): void => {
   res.send(centerDiv('Home Page'));
 });
 
 app.use('/', resize);
 
-app.get('/resize', (req, res) => {
+app.get('/resize', (req: express.Request, res: express.Response): void => {
   res.status(404).send(centerDiv('Please include a valid filename in the URL'));
 });
 
 app.use('/resizeavailable', availableRouter);
 
-app.get('/*', (req, res) => {
+app.get('/*', (req: express.Request, res: express.Response): void => {
   res.status(404).send(centerDiv('404 ERROR'));
 });
 
-app.listen(port, () => {
+app.listen(port, (): void => {
   `Server started on localhost:${port}`;
 });
 
