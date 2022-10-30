@@ -9,13 +9,6 @@ body {
     place-items: center;
 }
 
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-    z-index: 2;
-}
-
-
 ::-webkit-scrollbar-track {
     background: transparent;
 }
@@ -28,6 +21,10 @@ body {
     background: rgba(0, 0, 0, 0.25);
 }
 
+button {
+    cursor: pointer;
+}
+
 .img-preview {
     max-width: 100%;
     overflow: auto;
@@ -37,11 +34,10 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 99;
+    z-index: 97;
     margin: 5px 0 0 5px;
     background-color: rgba(255, 255, 255, 0.25);
     border: none;
-    cursor: pointer;
     display: grid;
     place-items: center;
 }
@@ -76,9 +72,11 @@ body {
 }
 
 .dimensions label {
+    color: rgb(10, 10, 10);
     padding: 20px 10px;
     display: grid;
     place-items: center;
+    /* -webkit-text-stroke: 0.05px white; */
 }
 
 .dimensions input {
@@ -92,6 +90,11 @@ body {
     align-self: center;
 }
 
+.buttons {
+    display: flex;
+    gap: 15px;
+}
+
 .submit-btn {
     margin: auto;
     width: 70px;
@@ -101,13 +104,120 @@ body {
     text-align: center;
     border-radius: 7px;
     border: 1px solid black;
-    cursor: pointer;
     background-color: white;
 }
 
 .submit-btn:hover {
     background-color: rgba(200, 200, 200, 0.7);
+}
 
+.upload-show {
+    width: 35px;
+    height: 35px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.upload-show:hover {
+    background-color: rgba(200, 200, 200, 0.7);
+}
+
+.upload-before {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 98;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.upload {
+    position: fixed;
+    min-height: 250px;
+    width: 450px;
+    z-index: 99;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 7px;
+    display: grid;
+    place-items: center;
+    animation: expand 500ms linear;
+}
+
+.upload-hide {
+    position: absolute;
+    padding: 0;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+}
+
+.upload form {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.upload form label {
+    display: flex;
+    align-items: center;
+    /* flex-direction: column; */
+    gap: 10px;
+    margin: auto;
+}
+
+.upload form label input[type="text"] {
+    width: 70px;
+    height: 35px;
+    min-width: 120px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 7px;
+    border: 1px solid black;
+    align-self: center;
+}
+
+.upload form input[type="file"] {
+    display: none;
+}
+
+.upload form label[for="img-upload"] {
+    width: fit-content;
+    height: 35px;
+    padding: 0 20px;
+    margin: auto;
+    line-height: 30px;
+    border-radius: 7px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.upload form label[for="img-upload"]:hover {
+    background-color: rgba(200, 200, 200, 0.7);
+}
+
+.upload form button {
+    margin: auto;
+    width: 70px;
+    height: 35px;
+    min-width: 120px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 7px;
+    border: 1px solid black;
+    background-color: white;
+
+}
+
+.upload form button:hover {
+    background-color: rgba(200, 200, 200, 0.7);
 }
 
 /* **************************************************************** */
@@ -141,6 +251,29 @@ body {
     align-items: space-between;
 }
 
+.drop-down-header input[type='search'] {
+    outline: none;
+    border: none;
+    margin-right: auto;
+    width: 100%;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    appearance: none;
+    height: 1em;
+    width: 1em;
+    border-radius: 50em;
+    background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg) no-repeat 50% 50%;
+    background-size: contain;
+    opacity: 0;
+    pointer-events: none;
+}
+
+input[type="search"]:focus::-webkit-search-cancel-button {
+    opacity: .3;
+    pointer-events: all;
+}
+
 .drop-down-selected {
     display: flex;
     align-items: center;
@@ -153,6 +286,7 @@ body {
     align-items: center;
     background-color: transparent;
     border: none;
+    cursor: default;
 }
 
 .drop-down-btn svg {
@@ -165,6 +299,9 @@ body {
 }
 
 .drop-down-choices {
+    max-height: 150px;
+    overflow-y: overlay;
+    overflow-x: hidden;
     position: absolute;
     top: 40px;
     left: 0;
@@ -174,6 +311,15 @@ body {
     border-radius: 7px;
     border-bottom: 1px solid rgba(20, 5, 25, 0.6);
     transform-origin: top center;
+}
+
+.drop-down-choices::-webkit-scrollbar {
+    width: 5px;
+}
+
+.drop-down-choices::-webkit-scrollbar-track {
+    background-color: rgba(200, 200, 200, 0.7);
+    border-radius: 0 7px 7px 0;
 }
 
 .drop-down-choices.show-choices {
@@ -218,7 +364,7 @@ body {
 
 .drop-down-choice {
     width: 100%;
-    cursor: pointer;
+    cursor: default;
 }
 
 .drop-down-choice.selected {

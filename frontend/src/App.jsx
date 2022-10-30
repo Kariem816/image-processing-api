@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import DropDown from './components/DropDown'
-import { FaArrowsAltV } from 'react-icons/fa'
+import DropDownSearch from './components/DropDownSearch'
+import { FaArrowsAltV, FaUpload } from 'react-icons/fa'
+import Upload from './components/Upload'
 
 const IMG_DATA_STORAGE_KEY = "resize.bumble.imgdata"
 
@@ -12,6 +13,7 @@ function App() {
     name: 'fjord'
   })
   const [isOptionsShown, setIsOptionsShown] = useState(false)
+  const [isUploadShown, setIsUploadShown] = useState(false)
   const [imgArr, setImgArr] = useState([])
 
   useEffect(() => {
@@ -21,8 +23,12 @@ function App() {
 
   async function getImg() {
     const res = await fetch('http://localhost:3000/resizeavailable')
-    const data = await res.json()
-    setImgArr(data)
+    if (res.status === 404) {
+      window.location.reload()
+    } else {
+      const data = await res.json()
+      setImgArr(data)
+    }
   }
 
   function handleChange(e) {
@@ -50,11 +56,12 @@ function App() {
       </div>
       <div className={`options${isOptionsShown ? "" : " hidden"}`}>
         <div className="controls">
-          <DropDown
+          <DropDownSearch
             options={imgArr}
             submit={submit}
             onChange={setImgData}
             defaultOption={imgData.name}
+            limit={imgArr.length > 10 ? 10 : 0}
           />
           <div className="dimensions">
             <label htmlFor="width">width</label>
@@ -75,12 +82,20 @@ function App() {
             />
           </div>
         </div>
-        <button
-          className='submit-btn'
-          onClick={handleClick}
-        >
-          OK
-        </button>
+        <div className='buttons'>
+          <button
+            className='submit-btn'
+            onClick={handleClick}
+          >
+            OK
+          </button>
+          <button
+            className='upload-show'
+            onClick={() => setIsUploadShown(prev => !prev)}
+          >
+            <FaUpload />
+          </button>
+        </div>
       </div>
       <button
         className='options-show'
@@ -88,6 +103,7 @@ function App() {
       >
         <FaArrowsAltV />
       </button>
+      {isUploadShown && <Upload setIsUploadShown={setIsUploadShown} />}
     </div>
   )
 }
