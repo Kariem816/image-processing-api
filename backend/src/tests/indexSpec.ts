@@ -13,7 +13,7 @@ describe('Index - Endpoint Tests', () => {
     expect(response.status).toBe(404);
   });
 
-  it('should return status 404 when trying to access any other endpoint (1)', async () => {
+  it('should return status 404 when trying to access any other endpoint (2)', async () => {
     const response = await request.get('/resize/fjord/300/600/900');
     expect(response.status).toBe(404);
   });
