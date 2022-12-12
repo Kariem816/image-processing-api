@@ -2,7 +2,7 @@
 
 A full stack app that allow the user to choose an image from a collection then resize it
 
-##Scripts:
+## Scripts:
 
 - to run tests: `npm run test`
 
@@ -12,7 +12,7 @@ A full stack app that allow the user to choose an image from a collection then r
 
 - to start compiled version: `node build/.`
   
-##Functionality:
+## Functionality:
 
 To test functionality you can:
 
